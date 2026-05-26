@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>RSA Faktorisierung</title>
+    <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+    <script src="../bootstrap/js/bootstrap.bundle.min.js"></script>
+</head>
+<body class="bg-light">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="../index.html">Data Hunt</a>
+        <div class="navbar-nav">
+            <a class="nav-link" href="../diffie-hellman-puzzle/index.html">Diffie-Hellman Erklärung</a>
+            <a class="nav-link" href="./index.html">RSA Erklärung</a>
+            <a class="nav-link" href="../terminal-puzzle/index.html">Terminal Puzzle</a>
+        </div>
+    </div>
+</nav>
+<div class="container py-4">
+    <h1 class="text-center mb-4">RSA Faktorisierung</h1>
+    <div class="card mb-4">
+        <div class="card-body">
+            <h5 class="card-title">Mission</h5>
+            <p>Bei RSA basiert die Sicherheit darauf, dass es einfach ist, zwei Primzahlen miteinander zu multiplizieren, aber sehr schwer, die Multiplikation wieder rückgängig zu machen.</p>
+            <p class="mb-0">Ihre Aufgabe: Finden Sie die zwei Primzahlen <code>p</code> und <code>q</code>, deren Produkt die unten angezeigte Zahl <code>n</code> ergibt.</p>
+        </div>
+    </div>
+    <div class="accordion mb-4" id="erklaerung">
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#erklaerung-body">
+                    Wie funktioniert RSA?
+                </button>
+            </h2>
+            <div id="erklaerung-body" class="accordion-collapse collapse" data-bs-parent="#erklaerung">
+                <div class="accordion-body">
+                    <dl class="row mb-0">
+                        <dt class="col-sm-3">p und q</dt>
+                        <dd class="col-sm-9">Zwei geheime Primzahlen. Nur der Empfänger kennt sie.</dd>
+                        <dt class="col-sm-3">n</dt>
+                        <dd class="col-sm-9">Das Produkt <code>p × q</code>. Diese Zahl ist öffentlich und Teil des öffentlichen Schlüssels. Jeder darf sie sehen.</dd>
+                        <dt class="col-sm-3">Sicherheit</dt>
+                        <dd class="col-sm-9 mb-0">Aus <code>n</code> wieder die beiden Primzahlen <code>p</code> und <code>q</code> zurückzurechnen heißt Faktorisierung. Bei kleinen Zahlen wie hier ist das machbar, bei den riesigen Zahlen im echten RSA (hunderte Stellen) bräuchten sogar leistungsstarke Rechner viele Jahre.</dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card mb-4 text-center">
+        <div class="card-body">
+            <p class="mb-1">Die öffentliche Zahl <code>n</code> lautet:</p>
+            <p class="fw-bold mb-0" id="anzeige-n">---</p>
+        </div>
+    </div>
+    <div class="card mb-4 mx-auto" style="max-width:500px">
+        <div class="card-body text-center">
+            <h4>Finden Sie p und q</h4>
+            <p>Tragen Sie zwei Primzahlen ein, deren Produkt <code>n</code> ergibt:</p>
+            <div class="d-flex justify-content-center align-items-center gap-2 mb-3">
+                <input type="number" id="eingabe-p" class="form-control text-center" placeholder="p" style="width:100px">
+                <span class="fs-4">×</span>
+                <input type="number" id="eingabe-q" class="form-control text-center" placeholder="q" style="width:100px">
+                <span class="fs-4">=</span>
+                <span id="rechnung-ergebnis" class="fw-bold fs-4">?</span>
+            </div>
+            <button id="btn-pruefe" class="btn btn-warning w-100 mb-2">Prüfen</button>
+            <p id="status" class="mt-2 mb-0"></p>
+            <button class="btn btn-link btn-sm mt-2" type="button" data-bs-toggle="collapse" data-bs-target="#hilfe">
+                Hilfe
+            </button>
+            <div class="collapse mt-2" id="hilfe">
+                <div class="card card-body bg-light text-start small">
+                    <p class="mb-2"><strong>Vorgehensweise:</strong></p>
+                    <ol class="mb-2 ps-3">
+                        <li>Eine Primzahl ist nur durch 1 und sich selbst teilbar (z.B. 2, 3, 5, 7, 11, 13, ...).</li>
+                        <li>Testen Sie kleine Primzahlen der Reihe nach: Geht <code>n</code> durch 2 auf? Durch 3? Durch 5? Durch 7?</li>
+                        <li>Sobald Sie eine Primzahl <code>p</code> finden, durch die <code>n</code> aufgeht, ist <code>q = n / p</code>.</li>
+                    </ol>
+                    <p class="mb-2"><strong>Tipp:</strong> Sie können den Teilungs-Rechner unten nutzen, um Teilungen schnell zu prüfen.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card mb-4">
+        <div class="card-body">
+            <h5 class="card-title">Teilungs-Rechner</h5>
+            <p class="small text-muted">Testen Sie ob <code>n</code> durch eine Zahl teilbar ist:</p>
+            <div class="d-flex flex-wrap align-items-center justify-content-center gap-2">
+                <span id="calc-n" class="fw-bold">---</span>
+                <span>÷</span>
+                <input type="number" id="calc-teiler" class="form-control" style="width:100px" placeholder="Teiler">
+                <span>=</span>
+                <span id="calc-result" class="fw-bold">?</span>
+            </div>
+            <div class="text-center mt-3">
+                <button id="calc-btn" class="btn btn-primary">Teilen</button>
+            </div>
+        </div>
+    </div>
+    <div class="text-center mb-5">
+        <button id="btn-neu" class="btn btn-outline-secondary">Neue Aufgabe</button>
+    </div>
+</div>
+<script src="../js/rsa-puzzle.js"></script>
+</body>
+</html>

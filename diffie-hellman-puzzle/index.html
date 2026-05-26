@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Diffie-Hellman</title>
+    <link href="../css/diffie-styles.css" rel="stylesheet">
+    <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="../index.html">Data Hunt</a>
+        <div class="navbar-nav">
+            <a class="nav-link" href="../diffie-hellman-puzzle/index.html">Diffie-Hellman Erklärung</a>
+            <a class="nav-link" href="../micic-rsa/index.html">RSA Erklärung</a>
+            <a class="nav-link" href="../terminal-puzzle/index.html">Terminal Puzzle</a>
+        </div>
+    </div>
+</nav>
+<div class="container py-4">
+    <h1 class="text-center mb-4">Diffie-Hellman Schlüsselaustausch</h1>
+    <div class="card mb-4">
+        <div class="card-body">
+            <h5 class="card-title">Mission</h5>
+            <p>Alice und Bob müssen ein gemeinsames Geheimnis austauschen, ohne dass ein Mithörer es erfährt. Folge diesen Schritten:</p>
+            <ol class="mb-0">
+                <li>Alice und Bob wählen je eine geheime Zahl und berechnen ihren Teil-Key.</li>
+                <li>Beide senden ihren Teil-Key über den öffentlichen Kanal.</li>
+                <li>Mit dem Modulo-Rechner können Sie das gemeinsame Geheimnis berechnen und dieses anschließend eingeben.</li>
+            </ol>
+        </div>
+    </div>
+    <div class="accordion mb-4" id="erklaerung">
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#erklaerung-body">
+                    Wie funktioniert Diffie-Hellman?
+                </button>
+            </h2>
+            <div id="erklaerung-body" class="accordion-collapse collapse" data-bs-parent="#erklaerung">
+                <div class="accordion-body">
+                    <dl class="row mb-0">
+                        <dt class="col-sm-3">g und p</dt>
+                        <dd class="col-sm-9">Öffentliche Zahlen, die alle kennen, auch der Angreifer. Sie dienen als gemeinsame Basis für alle Berechnungen.</dd>
+                        <dt class="col-sm-3 text-primary">prv_A / prv_B</dt>
+                        <dd class="col-sm-9">Die Geheimzahl von Alice / Bob. Jeder wählt seine eigene und gibt sie niemals weiter, auch nicht an den Kommunikationspartner.</dd>
+                        <dt class="col-sm-3 text-success">pub_A / pub_B</dt>
+                        <dd class="col-sm-9">Der Teil-Key von Alice / Bob. Wird aus der Geheimzahl berechnet und offen übertragen. Aus dem Teil-Key kann man die Geheimzahl praktisch nicht zurückrechnen.</dd>
+                        <dt class="col-sm-3 text-danger">S</dt>
+                        <dd class="col-sm-9 mb-0">Das gemeinsame Geheimnis. Alice rechnet <code>pub_B<sup>prv_A</sup> mod p</code>, Bob rechnet <code>pub_A<sup>prv_B</sup> mod p</code>. Beide kommen auf dasselbe Ergebnis, weil <code>(g<sup>a</sup>)<sup>b</sup> = (g<sup>b</sup>)<sup>a</sup></code>.</dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#farben-body">
+                    Farb-Erklärung: Diffie-Hellman anschaulich
+                </button>
+            </h2>
+            <div id="farben-body" class="accordion-collapse collapse" data-bs-parent="#erklaerung">
+                <div class="accordion-body">
+                    <p>Statt mit Zahlen kann man Diffie-Hellman auch mit Farben erklären. Farben kann man leicht mischen, aber praktisch nicht wieder entmischen, genau wie bei der Modulo-Mathematik:</p>
+                    <div class="text-center my-3">
+                        <img src="../img/dh_farbe_bild.svg" alt="Farb-Erklärung Diffie-Hellman" class="img-fluid" style="max-width:500px">
+                    </div>
+                    <p class="mb-0 text-muted small">Alice und Bob nutzen eine öffentliche Basisfarbe (grau). Jeder fügt seine geheime Farbe (blau bzw. rot) dazu und schickt das Ergebnis offen über den Kanal. Wenn jeder seine eigene Geheimfarbe nochmal in die empfangene Mischung gibt, kommt bei beiden dieselbe Endfarbe heraus, ohne dass die Geheimfarben je übertragen wurden.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card mb-4">
+        <div class="card-body">
+            <h5 class="card-title">Modulo-Rechner</h5>
+            <div class="d-flex flex-wrap align-items-center justify-content-center gap-2">
+                <input type="number" id="calc-base" class="form-control" placeholder="Basis">
+                <span>^</span>
+                <input type="number" id="calc-exp" class="form-control" placeholder="Exponent">
+                <span>mod</span>
+                <input type="number" id="calc-mod" class="form-control" placeholder="Modulo">
+                <span>=</span>
+                <span id="calc-result" class="fw-bold fs-5">---</span>
+            </div>
+            <div class="text-center mt-3">
+                <button id="calc-btn" class="btn btn-primary">Berechnen</button>
+            </div>
+        </div>
+    </div>
+    <p class="text-center fw-bold" id="festgelegteWerte">Festgelegte Werte: g = ?, p = ?</p>
+    <div class="row g-3 mb-4">
+        <div class="col-md-4">
+            <div class="card h-100" id="karte-alice">
+                <div class="card-body text-center">
+                    <h4 class="text-primary">Alice</h4>
+                    <label class="form-label">Geheime Zahl (a):</label>
+                    <input type="password" id="eingabe-alice" class="form-control text-center mb-2">
+                    <button id="btn-berechne-alice" class="btn btn-primary w-100 mb-2">Teil-Key berechnen</button>
+                    <p class="mb-2">Teil-Key (A): <span id="ausgabe-alice" class="fw-bold">---</span></p>
+                    <button id="btn-sende-alice" class="btn btn-success w-100" disabled>Senden</button>
+                    <button class="btn btn-link btn-sm mt-2" type="button" data-bs-toggle="collapse" data-bs-target="#hilfe-alice">
+                        Hilfe
+                    </button>
+                    <div class="collapse mt-2" id="hilfe-alice">
+                        <div class="card card-body bg-light text-start small">
+                            <p class="mb-2"><strong>Was ist zu tun?</strong> Alice berechnet ihren Teil-Key mit:</p>
+                            <p class="text-center fs-5 mb-2"><code>pub_A = g<sup>a</sup> mod p</code></p>
+                            <ul class="mb-0 ps-3">
+                                <li><code>g</code> ist die öffentliche Basis = <strong><span class="hilfe-g">?</span></strong></li>
+                                <li><code>a</code> ist Alices Geheimzahl (das was Sie oben eingeben)</li>
+                                <li><code>p</code> ist die öffentliche Primzahl = <strong><span class="hilfe-p">?</span></strong></li>
+                            </ul>
+                            <p class="mb-0 mt-2 text-muted">Den Teil-Key berechnet das Programm automatisch, Sie müssen nur die Geheimzahl eingeben.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h4 class="text-center">Öffentliches Log</h4>
+                    <div id="protokoll" class="border rounded p-2 bg-white">
+                        <p>Start...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100" id="karte-bob">
+                <div class="card-body text-center">
+                    <h4 class="text-danger">Bob</h4>
+                    <label class="form-label">Geheime Zahl (b):</label>
+                    <input type="password" id="eingabe-bob" class="form-control text-center mb-2">
+                    <button id="btn-berechne-bob" class="btn btn-primary w-100 mb-2">Teil-Key berechnen</button>
+                    <p class="mb-2">Teil-Key (B): <span id="ausgabe-bob" class="fw-bold">---</span></p>
+                    <button id="btn-sende-bob" class="btn btn-success w-100" disabled>Senden</button>
+                    <button class="btn btn-link btn-sm mt-2" type="button" data-bs-toggle="collapse" data-bs-target="#hilfe-bob">
+                        Hilfe
+                    </button>
+                    <div class="collapse mt-2" id="hilfe-bob">
+                        <div class="card card-body bg-light text-start small">
+                            <p class="mb-2"><strong>Was ist zu tun?</strong> Bob berechnet seinen Teil-Key mit:</p>
+                            <p class="text-center fs-5 mb-2"><code>pub_B = g<sup>b</sup> mod p</code></p>
+                            <ul class="mb-0 ps-3">
+                                <li><code>g</code> ist die öffentliche Basis = <strong><span class="hilfe-g">?</span></strong></li>
+                                <li><code>b</code> ist Bobs Geheimzahl (das was Sie oben eingeben)</li>
+                                <li><code>p</code> ist die öffentliche Primzahl = <strong><span class="hilfe-p">?</span></strong></li>
+                            </ul>
+                            <p class="mb-0 mt-2 text-muted">Den Teil-Key berechnet das Programm automatisch, Sie müssen nur die Geheimzahl eingeben.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card mx-auto" id="ergebnis-bereich">
+        <div class="card-body text-center">
+            <h4>Gemeinsames Geheimnis</h4>
+            <img id="schloss" src="../img/lock.svg" alt="Schloss" class="my-3" width="80px">
+            <p>Berechnen Sie das gemeinsame Geheimnis mit dem Modulo-Rechner und geben Sie es hier ein:</p>
+            <input type="text" id="eingabe-geheimnis" class="form-control text-center mb-3" maxlength="3" placeholder="3-stellig">
+            <button id="btn-pruefe" class="btn btn-warning w-100">Code prüfen</button>
+            <p id="ergebnis-zahl" class="fw-bold fs-2 mt-3">---</p>
+            <button class="btn btn-link btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#hilfe-final">
+                Hilfe
+            </button>
+            <div class="collapse mt-2" id="hilfe-final">
+                <div class="card card-body bg-light text-start small">
+                    <p class="mb-2"><strong>Was ist zu tun?</strong> Sie müssen das gemeinsame Geheimnis mit dem Modulo-Rechner ausrechnen.</p>
+                    <p class="mb-2"><strong>Alice rechnet:</strong></p>
+                    <p class="text-center fs-5 mb-2"><code>S = pub_B<sup>a</sup> mod p</code></p>
+                    <p class="mb-2"><strong>Bob rechnet:</strong></p>
+                    <p class="text-center fs-5 mb-2"><code>S = pub_A<sup>b</sup> mod p</code></p>
+                    <p class="mb-2">Es kommt bei beiden dasselbe heraus.</p>
+                    <p class="mb-2"><strong>So geben Sie es in den Modulo-Rechner ein (für Alices Weg):</strong></p>
+                    <ul class="mb-0 ps-3">
+                        <li><strong>Basis</strong> = Bobs Teil-Key (<code>pub_B</code>) = <strong><span class="hilfe-pubB">?</span></strong></li>
+                        <li><strong>Exponent</strong> = Alices Geheimzahl (<code>a</code>)</li>
+                        <li><strong>Modulo</strong> = die öffentliche Primzahl (<code>p</code>) = <strong><span class="hilfe-p">?</span></strong></li>
+                    </ul>
+                    <p class="mb-0 mt-2 text-muted">Tragen Sie das Ergebnis oben ins Feld ein.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="../js/diffie.js"></script>
+</body>
+</html>

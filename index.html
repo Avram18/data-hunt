@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Data Hunt</title>
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
+</head>
+<body class="bg-light d-flex flex-column min-vh-100">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="index.html">Data Hunt</a>
+        <div class="navbar-nav">
+            <a class="nav-link" href="diffie-hellman-puzzle/index.html">Diffie-Hellman Erklärung</a>
+            <a class="nav-link" href="micic-rsa/index.html">RSA Erklärung</a>
+            <a class="nav-link" href="terminal-puzzle/index.html">Terminal Puzzle</a>
+        </div>
+    </div>
+</nav>
+<section class="bg-dark text-white py-5">
+    <div class="container text-center py-4">
+        <h1 class="display-4 fw-bold">Data Hunt</h1>
+        <p class="lead mb-0">Verschlüsselungsverfahren spielerisch erlernen und verstehen</p>
+    </div>
+</section>
+<div class="container py-5 flex-grow-1">
+    <h2 class="text-center mb-4">Verschlüsselung verstehen</h2>
+    <p class="text-center mb-5">Es gibt zwei grundlegende Arten der Verschlüsselung:</p>
+    <div class="row g-4 mb-5">
+        <div class="col-md-6">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h3 class="card-title">Symmetrische Verschlüsselung</h3>
+                    <p>Bei der symmetrischen Verschlüsselung benutzen Sender und Empfänger denselben Schlüssel. Dieser Schlüssel wird sowohl zum Verschlüsseln als auch zum Entschlüsseln verwendet.</p>
+                    <p><strong>Vorteil:</strong> Sehr schnell und effizient.</p>
+                    <p><strong>Nachteil:</strong> Der Schlüssel muss vorher sicher ausgetauscht werden. Wer den Schlüssel kennt, kann mitlesen.</p>
+                    <p class="mb-0"><strong>Beispiel:</strong> AES, DES.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h3 class="card-title">Asymmetrische Verschlüsselung</h3>
+                    <p>Bei der asymmetrischen Verschlüsselung gibt es zwei Schlüssel pro Person: einen öffentlichen und einen privaten. Was mit dem öffentlichen Schlüssel verschlüsselt wird, kann nur mit dem zugehörigen privaten Schlüssel entschlüsselt werden.</p>
+                    <p><strong>Vorteil:</strong> Kein vorheriger Schlüsselaustausch nötig. Den öffentlichen Schlüssel darf jeder kennen.</p>
+                    <p><strong>Nachteil:</strong> Deutlich langsamer als symmetrische Verfahren.</p>
+                    <p class="mb-0"><strong>Beispiel:</strong> RSA, Diffie-Hellman.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h2 class="text-center mb-4">Lernen</h2>
+    <p class="text-center mb-5">Interaktive Erklärungen, die Sie auf das Puzzle vorbereiten:</p>
+    <div class="row g-4 mb-5">
+        <div class="col-md-6">
+            <div class="card h-100">
+                <div class="card-body d-flex flex-column">
+                    <h3 class="card-title">Diffie-Hellman Erklärung</h3>
+                    <p class="flex-grow-1">Verstehen Sie den Diffie-Hellman Schlüsselaustausch Schritt für Schritt. Berechnen Sie Teil-Keys aus der Sicht von Alice und Bob und sehen Sie, wie beide auf dasselbe gemeinsame Geheimnis kommen.</p>
+                    <a href="diffie-hellman-puzzle/index.html" class="btn btn-primary mt-2">Zur Erklärung</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card h-100">
+                <div class="card-body d-flex flex-column">
+                    <h3 class="card-title">RSA Erklärung</h3>
+                    <p class="flex-grow-1">Lernen Sie das RSA-Verfahren kennen. Erkunden Sie, wie öffentliche und private Schlüssel zusammenhängen und warum das Verfahren als sicher gilt.</p>
+                    <a href="micic-rsa/index.html" class="btn btn-primary mt-2">Zur Erklärung</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h2 class="text-center mb-4">Puzzle</h2>
+    <p class="text-center mb-5">Das eigentliche Rätsel. Wenden Sie Ihr Wissen aus den Erklärungen an:</p>
+    <div class="row g-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body d-flex flex-column">
+                    <h3 class="card-title">Terminal Puzzle</h3>
+                    <p>Lösen Sie das Verschlüsselungsrätsel direkt in einem Terminal. Hier kommt zusammen, was Sie in den Erklärungen gelernt haben.</p>
+                    <a href="terminal-puzzle/index.html" class="btn btn-warning mt-2 align-self-start">Puzzle starten</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<footer class="bg-dark text-white py-4 mt-auto">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h5>Data Hunt</h5>
+                <p class="mb-0 small">Ein Projekt von Avram Micic &amp; Raphael Revay</p>
+            </div>
+            <div class="col-md-6 text-md-end">
+                <p class="mb-1 small"><strong>Klasse:</strong> 3BHIT</p>
+                <p class="mb-1 small"><strong>Schule:</strong> HTL Wien West</p>
+                <p class="mb-1 small"><strong>Fach:</strong> Medientechnik</p>
+                <p class="mb-0 small"><strong>Schuljahr:</strong> 2025/26</p>
+            </div>
+        </div>
+    </div>
+</footer>
+</body>
+</html>
