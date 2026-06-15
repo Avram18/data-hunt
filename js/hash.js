@@ -10,6 +10,10 @@ function berechneHash(eingabe) {
     for (let i = 0; i < eingabe.length; i++) {
         const zeichen = eingabe[i].toLowerCase();
         if (!alphabet[zeichen]) {
+            if (zeichen === " ") {
+                result += "0";
+                continue;
+            }
             console.log(`Das eingegebene Zeichen "${zeichen}" ist nicht im Alphabet enthalten.`);
         }
         let wert = alphabet[zeichen] * (i + 1);
