@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hash Erklärung</title>
+    <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="../index.html">Data Hunt</a>
+        <div class="navbar-nav">
+            <a class="nav-link" href="../diffie-hellman-puzzle/index.html">Diffie-Hellman Erklärung</a>
+            <a class="nav-link" href="../micic-rsa/index.html">RSA Erklärung</a>
+            <a class="nav-link" href="./index.html">Hash Erklärung</a>
+            <a class="nav-link" href="../terminal-puzzle/index.html">Terminal Puzzle</a>
+            <a class="nav-link" href="../about-us/about.html">Über uns</a>
+        </div>
+    </div>
+</nav>
+<div class="container">
+    <h1 class="mt-4 mb-3">Hash Erklärung</h1>
+    <div class="form-floating mb-3">
+        <input class="form-control" type="text" id="zeichen-eingabe" placeholder="Geben Sie Textzeichen ein">
+        <label for="zeichen-eingabe">Textzeichen in dieses Feld eingeben, die in einen Hash-Wert umgewandelt werden sollen</label>
+    </div>
+    <label for="hash-wert">Hash-Wert:</label>
+    <input class="form-control" type="text" id="hash-wert" readonly>
+</div>
+
+    <script src="../bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/hash.js"></script>
+</body>
+</html>
