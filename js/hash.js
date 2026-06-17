@@ -4,6 +4,7 @@ const randomStringFeld = document.getElementById("random-string");
 const hashOutputFeld = document.getElementById("hash-output");
 const oldValueFeld = document.getElementById("old-string-field");
 const oldHashFeld = document.getElementById("old-hash-field");
+const generateHashButton = document.getElementById("generate-hash-button");
 const subtleObject = crypto.subtle;
 const charValues = {
     ' ': 0, 'a': 1, 'b': 2, 'c': 3, 'd': 4, 'e': 5, 'f': 6, 'g': 7, 'h': 8, 'i': 9, 'j': 10,
@@ -58,14 +59,16 @@ zeichenEingabeFeld.addEventListener("input", function () {
     hashWertFeld.value = berechneHash(eingabe);
 });
 
-randomStringFeld.addEventListener("input", async function () {
+generateHashButton.addEventListener("click", async function () {
     const currentValue = randomStringFeld.value;
-    const hashValue = await updateHashOutput(currentValue);
-    hashOutputFeld.value = hashValue;
+    const currentHash = await updateHashOutput(currentValue);
     oldValueFeld.value = lastValue;
     oldHashFeld.value = lastHash;
+    hashOutputFeld.value = currentHash;
+    randomStringFeld.value = currentValue;
     lastValue = currentValue;
-    lastHash = hashValue;
+    lastHash = currentHash;
+
 });
 
 document.addEventListener("DOMContentLoaded", async function () {

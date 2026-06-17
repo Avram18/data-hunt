@@ -23,12 +23,26 @@
 </nav>
 <div class="container">
     <h1 class="mt-4 mb-3">Hash Erklärung</h1>
+    <p>Hash ermöglicht die Erstellung eines eindeutigen Fingerabdrucks für Daten, 
+        wodurch Änderungen an den Daten sofort erkennbar sind. Es gibt mehrere gängige Hash-Algorithmen, 
+        wie z.B. SHA-256 oder SHA-512. Eine Hash-Funktion konvertiert eine Eingabe in einen festen Hash-Wert, 
+        der eindeutig für diese Eingabe ist und mit keinem Hash Wert einer anderen Eingabe übereinstimmen darf 
+        (Kollisionssicherheit). Die unterschiedlichen 
+        Hash Algorithmen sorgen für unterschiedliche Längen der Hash-Werte und können somit das Brute-Force-Angriff schwieriger machen. 
+        Der Hash-Wert sollte nicht leicht rückgängig gemacht werden können bei Nutzung eines sicheren Hash-Algorithmus.</p>
     <div class="row mb-3">
     <div class="col-12 col-md-6 mb-2">
-        <textarea class="form-control" id="random-string"></textarea>
+        <div class="input-group input-group-sm">
+            <span class="input-group-text">Neuste Zeicheneingabe:</span>
+            <textarea class="form-control" id="random-string"></textarea>
+            <button class="btn btn-outline-secondary" type="button" id="generate-hash-button">Hash berechnen</button>
+        </div>
     </div>
     <div class="col-12 col-md-6">
-        <textarea class="form-control" id="hash-output" readonly></textarea>
+        <div class="input-group input-group-sm">
+            <span class="input-group-text">SHA-512 Hash Wert der neusten Eingabe:</span>
+            <textarea class="form-control" id="hash-output" readonly></textarea>
+        </div>
     </div>
     <div class="col-12 col-md-6">
         <div class="input-group input-group-sm">
@@ -43,6 +57,9 @@
         </div>
     </div>
     </div>
+    <h2>
+        Eigener Hash-Algorithmus (nicht wirklich sicher, nur zum Veranschaulichen)
+    </h2>
     <div class="form-floating mb-3">
         <input class="form-control" type="text" id="zeichen-eingabe" placeholder="Geben Sie Textzeichen ein">
         <label for="zeichen-eingabe">Textzeichen in dieses Feld eingeben, die in einen Hash-Wert umgewandelt werden sollen</label>
