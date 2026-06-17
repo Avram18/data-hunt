@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hash Erklärung</title>
     <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/hash.css">
+    <link rel="icon" type="image/x-icon" href="../img/protection.png">
 </head>
 <body class="d-flex flex-column min-vh-100">
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -21,6 +23,26 @@
 </nav>
 <div class="container">
     <h1 class="mt-4 mb-3">Hash Erklärung</h1>
+    <div class="row mb-3">
+    <div class="col-12 col-md-6 mb-2">
+        <textarea class="form-control" id="random-string"></textarea>
+    </div>
+    <div class="col-12 col-md-6">
+        <textarea class="form-control" id="hash-output" readonly></textarea>
+    </div>
+    <div class="col-12 col-md-6">
+        <div class="input-group input-group-sm">
+            <span class="input-group-text">Alte Zeicheneingabe:</span>
+            <textarea class="form-control" id="old-string-field" readonly></textarea>
+        </div>
+    </div>
+    <div class="col-12 col-md-6">
+        <div class="input-group input-group-sm">
+            <span class="input-group-text">SHA-512 Hash Wert der alten Eingabe:</span>
+            <textarea class="form-control" id="old-hash-field" readonly></textarea>
+        </div>
+    </div>
+    </div>
     <div class="form-floating mb-3">
         <input class="form-control" type="text" id="zeichen-eingabe" placeholder="Geben Sie Textzeichen ein">
         <label for="zeichen-eingabe">Textzeichen in dieses Feld eingeben, die in einen Hash-Wert umgewandelt werden sollen</label>
