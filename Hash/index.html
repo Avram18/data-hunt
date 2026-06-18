@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="../css/hash.css">
     <link rel="icon" type="image/x-icon" href="../img/protection.png">
 </head>
-<body class="d-flex flex-column min-vh-100">
+<body class="bg-light d-flex flex-column min-vh-100">
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
         <a class="navbar-brand" href="../index.html">Data Hunt</a>
@@ -21,69 +21,119 @@
         </div>
     </div>
 </nav>
-<div class="container">
-    <h1 class="mt-4 mb-3">Hash Erklärung</h1>
-    <p>Hash ermöglicht die Erstellung eines eindeutigen Fingerabdrucks für Daten, 
-        wodurch Änderungen an den Daten sofort erkennbar sind. Es gibt mehrere gängige Hash-Algorithmen, 
-        wie z.B. SHA-256 oder SHA-512. Eine Hash-Funktion konvertiert eine Eingabe in einen festen Hash-Wert, 
-        der eindeutig für diese Eingabe ist und mit keinem Hash Wert einer anderen Eingabe übereinstimmen darf 
-        (Kollisionssicherheit). Die unterschiedlichen 
-        Hash Algorithmen sorgen für unterschiedliche Längen der Hash-Werte und können somit das Brute-Force-Angriff schwieriger machen. 
-        Der Hash-Wert sollte nicht leicht rückgängig gemacht werden können bei Nutzung eines sicheren Hash-Algorithmus.</p>
-    <div class="row mb-3">
-    <div class="col-12 col-md-6 mb-2">
-        <div class="input-group input-group-sm">
-            <span class="input-group-text">Neuste Zeicheneingabe:</span>
-            <textarea class="form-control" id="random-string"></textarea>
-            <button class="btn btn-outline-secondary" type="button" id="generate-hash-button">Hash berechnen</button>
+<div class="container py-4">
+    <h1 class="text-center mb-4">Hash-Funktionen</h1>
+
+    <div class="card mb-4">
+        <div class="card-body">
+            <h5 class="card-title">Was ist ein Hash?</h5>
+            <p class="mb-0">Eine Hash-Funktion erzeugt aus beliebigen Daten einen Wert fester Länge, eine Art digitalen Fingerabdruck. Schon eine winzige Änderung der Eingabe führt zu einem völlig anderen Hash. Genau deshalb erkennt man damit, ob Daten unverändert sind. Gängige Verfahren sind zum Beispiel SHA-256 und SHA-512.</p>
         </div>
     </div>
-    <div class="col-12 col-md-6">
-        <div class="input-group input-group-sm">
-            <span class="input-group-text">SHA-512 Hash Wert der neusten Eingabe:</span>
-            <textarea class="form-control" id="hash-output" readonly></textarea>
-        </div>
-    </div>
-    <div class="col-12 col-md-6">
-        <div class="input-group input-group-sm">
-            <span class="input-group-text">Alte Zeicheneingabe:</span>
-            <textarea class="form-control" id="old-string-field" readonly></textarea>
-        </div>
-    </div>
-    <div class="col-12 col-md-6">
-        <div class="input-group input-group-sm">
-            <span class="input-group-text">SHA-512 Hash Wert der alten Eingabe:</span>
-            <textarea class="form-control" id="old-hash-field" readonly></textarea>
-        </div>
-    </div>
-    </div>
-    <h2>
-        Eigener Hash-Algorithmus (nicht wirklich sicher, nur zum Veranschaulichen)
-    </h2>
-    <div class="form-floating mb-3">
-        <input class="form-control" type="text" id="zeichen-eingabe" placeholder="Geben Sie Textzeichen ein">
-        <label for="zeichen-eingabe">Textzeichen in dieses Feld eingeben, die in einen Hash-Wert umgewandelt werden sollen</label>
-    </div>
-    <div class="input-group">
-        <span class="input-group-text">Hash-Wert:</span>
-        <input class="form-control" type="text" id="hash-wert" readonly>
-    </div>
-</div>
-<footer class="bg-dark text-white py-4 mt-auto">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6">
-                    <h5>Data Hunt</h5>
-                    <p class="mb-0 small">Ein Projekt von Avram Micic &amp; Raphael Revay</p>
-                </div>
-                <div class="col-md-6 text-md-end">
-                    <p class="mb-1 small"><strong>Klasse:</strong> 3BHIT</p>
-                    <p class="mb-1 small"><strong>Schule:</strong> HTL Wien West</p>
-                    <p class="mb-1 small"><strong>Fach:</strong> Medientechnik</p>
-                    <p class="mb-0 small"><strong>Schuljahr:</strong> 2025/26</p>
+    <div class="accordion mb-4" id="erklaerung">
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#erklaerung-body">
+                    Wie funktioniert ein Hash?
+                </button>
+            </h2>
+            <div id="erklaerung-body" class="accordion-collapse collapse" data-bs-parent="#erklaerung">
+                <div class="accordion-body">
+                    <dl class="row mb-0">
+                        <dt class="col-sm-3">Deterministisch</dt>
+                        <dd class="col-sm-9">Dieselbe Eingabe ergibt immer denselben Hash. Sonst könnte man damit nichts überprüfen.</dd>
+                        <dt class="col-sm-3">Feste Länge</dt>
+                        <dd class="col-sm-9">Egal ob ein Wort oder ein ganzes Buch eingegeben wird, der Hash ist immer gleich lang (bei SHA-512 sind es 512 Bit).</dd>
+                        <dt class="col-sm-3">Einwegfunktion</dt>
+                        <dd class="col-sm-9">Den Hash zu berechnen ist leicht, ihn zurückzurechnen praktisch unmöglich. Aus dem Hash kommt man  nicht auf die ursprüngliche Eingabe.</dd>
+                        <dt class="col-sm-3">Lawineneffekt</dt>
+                        <dd class="col-sm-9">Ändert man nur ein einziges Zeichen der Eingabe, ändert sich der gesamte Hash. Das kann man in der Demo unten direkt ausprobieren.</dd>
+                        <dt class="col-sm-3">Kollisionsresistenz</dt>
+                        <dd class="col-sm-9 mb-0">Weil die Ausgabe fest, die möglichen Eingaben aber unbegrenzt sind, gibt es zwangsläufig verschiedene Eingaben mit demselben Hash (sogenannte Kollisionen). Bei einem guten Verfahren ist es aber praktisch unmöglich, solche absichtlich zu finden.</dd>
+                    </dl>
                 </div>
             </div>
         </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#wozu-body">
+                    Wofür braucht man Hashes?
+                </button>
+            </h2>
+            <div id="wozu-body" class="accordion-collapse collapse" data-bs-parent="#erklaerung">
+                <div class="accordion-body">
+                    Integrität prüfen: Stimmt der Hash einer heruntergeladenen Datei mit dem angegebenen überein, wurde sie unterwegs nicht verändert.
+                    <br>Passwörter speichern: Dienste speichern nicht das Passwort selbst, sondern dessen Hash. Bei der Anmeldung wird verglichen, nie das Klartext-Passwort.
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-body">
+            <h5 class="card-title">SHA-512 ausprobieren</h5>
+            <p class="small text-muted">Tippe einen Text ein und klicke „Hash berechnen". Die vorige Eingabe und ihr Hash bleiben zum Vergleich stehen. Ändere eine Kleinigkeit und du siehst den Lawineneffekt.</p>
+            <div class="row g-3">
+                <div class="col-12 col-md-6">
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-text">Neueste Zeicheneingabe:</span>
+                        <textarea class="form-control" id="random-string"></textarea>
+                        <button class="btn btn-outline-secondary" type="button" id="generate-hash-button">Hash berechnen</button>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6">
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-text">SHA-512 der neuesten Eingabe:</span>
+                        <textarea class="form-control" id="hash-output" readonly></textarea>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6">
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-text">Alte Zeicheneingabe:</span>
+                        <textarea class="form-control" id="old-string-field" readonly></textarea>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6">
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-text">SHA-512 der alten Eingabe:</span>
+                        <textarea class="form-control" id="old-hash-field" readonly></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mb-5">
+        <div class="card-body">
+            <h5 class="card-title">Eigener Hash-Algorithmus</h5>
+            <p class="small text-muted mb-3">Stark vereinfacht und nicht sicher, nur zum Veranschaulichen: Jedes Zeichen bekommt einen Zahlenwert, der mit seiner Position multipliziert und aneinandergehängt wird.</p>
+            <div class="form-floating mb-3">
+                <input class="form-control" type="text" id="zeichen-eingabe" placeholder="Geben Sie Textzeichen ein">
+                <label for="zeichen-eingabe">Text eingeben, der in einen Hash-Wert umgewandelt werden soll</label>
+            </div>
+            <div class="input-group">
+                <span class="input-group-text">Hash-Wert:</span>
+                <input class="form-control" type="text" id="hash-wert" readonly>
+            </div>
+        </div>
+    </div>
+</div>
+<footer class="bg-dark text-white py-4 mt-auto">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h5>Data Hunt</h5>
+                <p class="mb-0 small">Ein Projekt von Avram Micic &amp; Raphael Revay</p>
+            </div>
+            <div class="col-md-6 text-md-end">
+                <p class="mb-1 small"><strong>Klasse:</strong> 3BHIT</p>
+                <p class="mb-1 small"><strong>Schule:</strong> HTL Wien West</p>
+                <p class="mb-1 small"><strong>Fach:</strong> Medientechnik</p>
+                <p class="mb-0 small"><strong>Schuljahr:</strong> 2025/26</p>
+            </div>
+        </div>
+    </div>
 </footer>
 <script src="../bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="../js/hash.js"></script>

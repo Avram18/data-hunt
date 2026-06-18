@@ -15,16 +15,54 @@
                 <a class="navbar-brand" href="../index.html">Data Hunt</a>
             <div class="navbar-nav">
                 <a class="nav-link" href="../diffie-hellman-puzzle/index.html">Diffie-Hellman Puzzle</a>
-                <a class="nav-link" href="../micic-rsa/index.html">RSA Erklärung</a>
-                <a class="nav-link" href="../Hash/index.html">Hash Erklärung</a>
+                <a class="nav-link" href="../micic-rsa/index.html">RSA Erkl&auml;rung</a>
+                <a class="nav-link" href="../Hash/index.html">Hash Erkl&auml;rung</a>
                 <a class="nav-link" href="./index.html">Terminal Puzzle</a>
-                <a class="nav-link" href="../about-us/about.html">Über uns</a>
+                <a class="nav-link" href="../about-us/about.html">&Uuml;ber uns</a>
             </div>
         </div>
     </nav>
     <div class="container dashboard-container">
         <h3>Terminal Puzzle</h3>
-        <iframe id="shell" src="http://192.168.0.144:10000"></iframe>
+
+        <div class="card mb-4">
+            <div class="card-body">
+                <h5 class="card-title">Briefing</h5>
+                <p class="mb-0">Sie sind ein Agent in einer Daten-Jagd. Deine Mission: die Logs eines Gespr&auml;chs zwischen Xavier und Benjamin sicherstellen. Dazu verschaffen Sie sich Schritt f&uuml;r Schritt Zugriff auf Xaviers Rechner.</p>
+            </div>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-body">
+                <h5 class="card-title">So startest du das Puzzle</h5>
+                <ol class="mb-3">
+                    <li>&Ouml;ffnen Sie Git Bash im Verzeichnis <code>terminal-puzzle</code> (Rechtsklick im Ordner, dann <strong>Git Bash Here</strong>).</li>
+                    <li>Starten Sie das Puzzle mit:</li>
+                </ol>
+                <div class="input-group mb-2">
+                    <input type="text" class="form-control font-monospace" id="cmd" value="bash Textadventure-Demo" readonly>
+                    <button class="btn btn-dark" type="button" id="copy-btn">Kopieren</button>
+                </div>
+                <p class="small text-muted mb-0">Wenn du nicht weiterkommst, tippe im Terminal <code>Hint</code> und du bekommst einen Tipp.</p>
+            </div>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-body">
+                <h5 class="card-title">Was du daf&uuml;r brauchst</h5>
+                <p>Das Puzzle hat vier Schritte. Diese Erkl&auml;rungen bereiten dich vor:</p>
+                <ul class="mb-0">
+                    <li><strong>Verschl&uuml;sselte Nachricht knacken</strong>: eine Buchstabenverschiebung r&uuml;ckg&auml;ngig machen (Caesar).</li>
+                    <li><strong>Session-Key berechnen</strong>: Diffie-Hellman mit g, p und den privaten Schl&uuml;sseln. Siehe <a href="../diffie-hellman-puzzle/index.html">Diffie-Hellman</a>.</li>
+                    <li><strong>RSA-Sperre knacken</strong>: die Zahl n in ihre zwei Primzahlen zerlegen. Siehe <a href="../micic-rsa/index.html">RSA</a>.</li>
+                    <li><strong>Passwort-Hash knacken</strong>: einen Hash-Wert nachrechnen und das Passwort finden. Siehe <a href="../Hash/index.html">Hash</a>.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="alert alert-secondary mb-0">
+            Hinweis: Das Puzzle l&auml;uft komplett lokal in Git Bash. Es wird kein Server und keine Internetverbindung ben&ouml;tigt.
+        </div>
     </div>
     <footer class="bg-dark text-white py-4 mt-auto">
         <div class="container">
@@ -42,5 +80,15 @@
             </div>
         </div>
     </footer>
+    <script>
+        document.getElementById("copy-btn").addEventListener("click", function () {
+            const feld = document.getElementById("cmd");
+            navigator.clipboard.writeText(feld.value).then(() => {
+                const alt = this.innerText;
+                this.innerText = "Kopiert";
+                setTimeout(() => { this.innerText = alt; }, 1500);
+            });
+        });
+    </script>
 </body>
 </html>
